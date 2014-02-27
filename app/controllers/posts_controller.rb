@@ -2,6 +2,8 @@ class PostsController < ApplicationController
   # GET /posts
   # GET /posts.json
   def index
+    @status = %w[published unpublished].include?(params[:status]) ?
+      params[:status] : nil
     @posts = Post.search(params[:search]).page(params[:page]).per(15)
     logger.info("Params search is #{params[:search]}")
     respond_to do |format|
